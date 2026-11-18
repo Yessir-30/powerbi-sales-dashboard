@@ -1,89 +1,57 @@
-﻿# 🧠 Dashboard Power BI – Analyse des ventes et qualité des données
+# Tableau de bord des ventes – Power BI
 
-Ce projet a été réalisé dans le cadre d'un atelier de modélisation et de visualisation de données avec **Power BI Desktop**.  
-Il illustre la création d'un tableau de bord complet, depuis l'importation des données brutes jusqu'à la construction d'un modèle de données propre et normalisé.
+Rapport Power BI interactif qui suit les ventes d'une entreprise de matériel informatique sur l'année 2023 : chiffre d'affaires, volumes, répartition par région et par produit, et analyse des commandes annulées.
 
----
+> Projet personnel réalisé pour pratiquer Power Query, la modélisation en étoile et le langage DAX.
 
-## 📂 Structure du projet
+## Chiffres clés (année 2023)
 
-- **data/** : fichiers CSV utilisés pour l'analyse (`sales_2.csv`)
-- **screenshots/** : captures du tableau de bord final
-- **powerbi-dashboard.pbix** : fichier Power BI complet
-- **README.md** : documentation du projet
+| Indicateur | Valeur |
+|---|---|
+| Chiffre d'affaires | 2,4 M€ |
+| Commandes | 500 |
+| Quantité vendue | 3 109 unités |
+| Commande moyenne | 4 796 € |
+| Commandes annulées | 123, soit 25 % (550 k€) |
 
----
+## Page 1 – Suivi des ventes
 
-## ⚙️ Étapes principales du projet
+![Page Suivi des ventes](captures/suivi-ventes.png)
 
-### 1️⃣ Importation et nettoyage des données
-- Import du fichier `sales_2.csv` dans Power Query  
-- Analyse de la qualité et du type de données  
-- Renommage des colonnes pour une meilleure lisibilité :
-  - `OrderID` → *Id commande*
-  - `CustomerID` → *Id client*
-  - `ProductName` → *Nom produit*, etc.
+- Quatre indicateurs en tête de page : chiffre d'affaires, nombre de commandes, quantité vendue, commande moyenne.
+- Évolution mensuelle du chiffre d'affaires et du nombre de commandes.
+- Répartition du chiffre d'affaires par région (la région **South** arrive en tête) et par catégorie de produit (**Electronics** : 62 %, **Accessories** : 38 %).
+- Tableau détaillé des commandes, trié par chiffre d'affaires.
+- Filtres : région, statut de commande, période.
 
-### 2️⃣ Normalisation du modèle
-Création de tables de référence :
-- **Clients** : regroupement par Id et Nom client  
-- **Produits** : regroupement par Id, Nom et Catégorie  
-- **Régions** : regroupement par Id et Nom région  
-- **Ventes** : table principale issue de la table brute
+## Page 2 – Commandes annulées
 
-### 3️⃣ Modélisation des relations
-- Vérification des relations automatiques entre les tables  
-- Création manuelle de relations si nécessaire  
-- Test de cohérence entre Id commande et nom de produit
+![Page Commandes annulées](captures/commandes-annulees.png)
 
-### 4️⃣ Création du tableau de bord
-- Thème personnalisé : *Loomy Lime Theme*  
-- Couleurs : fond `#1E2D38`, briques `#232448`
+- 123 commandes annulées sur 500, soit **25 %** et **550 k€** de chiffre d'affaires perdu.
+- Évolution mensuelle du nombre et du pourcentage de commandes annulées.
+- Part des annulations par région : la plus forte à l'**Est** (près de 29 %), la plus faible au **Nord** (près de 19 %).
+- Répartition des annulations par produit et évolution par produit au fil de l'année.
 
-#### Mesures DAX principales
-```DAX
-Total ventes = SUM(Ventes[Prix total])
-Nombre de commandes = DISTINCTCOUNT(Ventes[Id commande])
-Quantité vendue = SUM(Ventes[Quantité])
-Commande moyenne = DIVIDE([Total ventes], [Nombre de commandes])
-```
+## Infobulles personnalisées
 
-#### Visuels
+Au survol d'une région ou d'un produit, une infobulle affiche un graphique détaillé.
 
-- 4 KPI : Total ventes, Nombre de commandes, Quantité vendue, Commande moyenne
-- Courbe d'évolution du chiffre d'affaires
-- Barres horizontales par région
-- Donut par catégorie de produit
-- Tableau détaillé des commandes
+| Évolution du chiffre d'affaires d'une région | Évolution des annulations par produit |
+|---|---|
+| ![Infobulle région](captures/infobulle-region.png) | ![Infobulle produits](captures/infobulle-produits.png) |
 
-### 5️⃣ Filtres et interactions
+## Démarche
 
-- Filtre de plage de dates
-- Filtre sur le statut de commande
-- Filtre sur la région
+1. **Power Query** : nettoyage et fiabilisation des données (types, valeurs manquantes, doublons).
+2. **Modélisation en étoile** : une table de faits des commandes reliée à des tables de dimensions.
+3. **DAX** : mesures pour le chiffre d'affaires, le nombre de commandes, la commande moyenne, le montant et le pourcentage de commandes annulées.
+4. **Visualisation** : deux pages de rapport, des filtres et des infobulles personnalisées.
 
-### 6️⃣ Onglet "Commandes annulées"
+## Données
 
-- Duplication du premier onglet
-- Nouvelles mesures :
-- Total commandes annulées
-- Montant commandes annulées
-- Pourcentage commandes annulées
-- KPI, courbes et treemap dédiées
+Jeu de données de ventes 2023 : commandes, clients, produits (8 produits en 2 catégories), régions (4) et statut de commande. Source : *à compléter*.
 
-### 7️⃣ Info-bulles (tooltips)
-Info-bulle pour histogramme par région
+## Outils
 
-Info-bulle pour donut par catégorie de produit
-
-## 🧩 Technologies utilisées
-
-- Power BI Desktop
-- Power Query
-- DAX
-- Excel / CSV
-
-## 👨‍🎓 Auteur
-**Yessir Arèmou Akorede ALI**  
-Élève ingénieur à **JUNIA ISEN Lille**, spécialisation Data & Intelligence Artificielle  
-Projet réalisé dans le cadre d'un atelier de modélisation et d'analyse de données.
+Power BI Desktop · Power Query · DAX
