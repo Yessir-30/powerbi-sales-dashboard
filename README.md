@@ -50,7 +50,7 @@ Au survol d'une région ou d'un produit, une infobulle affiche un graphique dét
 
 ## Données
 
-Jeu de données de ventes 2023 : commandes, clients, produits (8 produits en 2 catégories), régions (4) et statut de commande. Source : *à compléter*.
+Jeu de données de ventes 2023 : commandes, clients, produits (8 produits en 2 catégories), régions (4) et statut de commande. Source : jeu de données fictif d'entraînement (entreprises et clients inventés).
 
 ## Outils
 
